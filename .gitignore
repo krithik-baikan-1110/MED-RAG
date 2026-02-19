@@ -1,0 +1,28 @@
+# Datasets (large - download separately, see README)
+data/
+
+# Python virtual environment
+myenv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Node modules
+frontend/node_modules/
+
+# Cache (generated embeddings)
+cache/
+
+# Environment variables
+.env
+frontend/.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

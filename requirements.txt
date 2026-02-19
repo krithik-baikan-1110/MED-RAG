@@ -1,0 +1,71 @@
+# # Core Dependencies
+# weaviate-client>=3.16.0
+# sentence-transformers>=2.2.0
+# transformers>=4.30.0
+# torch>=2.0.0
+# Pillow>=9.0.0
+# pandas>=1.5.0
+# tqdm>=4.65.0
+# huggingface-hub>=0.14.0
+# open_clip_torch>=2.23.0
+# # base64>=0.1.0
+# # Data Processing
+# numpy>=1.21.0
+# scikit-learn>=1.0.0
+
+# # Web Framework (if using FastAPI/Flask)
+# fastapi>=0.68.0
+# uvicorn>=0.15.0
+# python-multipart>=0.0.5
+
+# # Utils
+# python-dotenv>=0.19.0
+# requests>=2.26.0
+# # Development
+# pytest>=6.2.5
+# black>=21.12b0
+# flake8>=4.0.1
+
+# openai>=1.50.0
+
+# # LangChain orchestration
+# langchain>=0.2.10
+# langchain-core>=0.2.10
+# langchain-community>=0.2.10
+# langchain-openai>=0.1.7
+
+# Core Dependencies
+weaviate-client>=3.26.7,<4.0.0
+sentence-transformers>=2.2.0
+transformers>=4.30.0
+torch>=2.0.0
+Pillow>=9.0.0
+pandas>=1.5.0
+tqdm>=4.65.0
+huggingface-hub>=0.14.0
+open_clip_torch>=2.23.0
+# base64>=0.1.0
+# Data Processing
+numpy>=1.21.0
+scikit-learn>=1.0.0
+
+# Web Framework (if using FastAPI/Flask)
+fastapi>=0.68.0
+uvicorn>=0.15.0
+python-multipart>=0.0.5
+
+# Utils
+python-dotenv>=0.19.0
+requests>=2.26.0
+# Development
+pytest>=6.2.5
+black>=21.12b0
+flake8>=4.0.1
+
+openai>=1.50.0
+
+# LangChain orchestration
+langchain>=0.2.3
+langchain-openai>=0.1.14
+langchain-core>=0.2.27
+langchain-community>=0.2.12
