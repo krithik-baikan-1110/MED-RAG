@@ -58,7 +58,7 @@ graph TB
 | `frontend/src/` | React TypeScript UI |
 | `scripts/` | Data ingestion, evaluation, and tuning utilities |
 | `data/` | Medical datasets (3 domains) |
-| `models/` | Local model checkpoints (BiomedCLIP, lvmm, retriever) |
+| `models/` | Local model checkpoints (BiomedCLIP, retriever) |
 | `cache/` | Cached embeddings from ingestion |
 | `docker-compose.yml` | Weaviate container definition |
 
