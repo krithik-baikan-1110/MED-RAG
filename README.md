@@ -1,4 +1,4 @@
-# MED-RAG Project Walkthrough
+# MED-RAG - Multimodal Medical RAG System 
 
 A **Medical Retrieval-Augmented Generation (RAG)** system supporting three clinical imaging domains: **Radiology**, **Ophthalmology**, and **Pathology**. It combines BiomedCLIP vision-language embeddings, Weaviate vector search, and a Qwen3-VL large multimodal model to answer medical image questions.
 
