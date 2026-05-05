@@ -85,7 +85,7 @@ graph TB
 | `/chat/reset` | POST | Reset session memory |
 | `/chat/prime` | POST | Silently prime a session with an image (pre-analyze) |
 
-### Core — RAG Pipeline (`backend/app/core/rag_pipeline.py`, 745 lines)
+### Core — RAG Pipeline (`backend/app/core/rag_pipeline.py`)
 
 The heart of the system. Key operations:
 
