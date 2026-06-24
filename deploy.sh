@@ -68,14 +68,14 @@ echo "[6/8] Starting services (HTTP-only for initial cert setup)..."
 cp nginx.init.conf nginx.active.conf
 
 # Temporarily use the HTTP-only config
-sudo docker compose -f docker-compose.prod.yml up -d --build
+sudo docker-compose -f docker-compose.prod.yml up -d --build
 
 echo "Waiting 15s for services to stabilize..."
 sleep 15
 
 # ---- 7. Obtain SSL Certificate ----
 echo "[7/8] Obtaining SSL certificate from Let's Encrypt..."
-sudo docker compose -f docker-compose.prod.yml run --rm certbot \
+sudo docker-compose -f docker-compose.prod.yml run --rm certbot \
     certonly --webroot \
     --webroot-path=/var/www/certbot \
     --email "$EMAIL" \
@@ -87,7 +87,7 @@ sudo docker compose -f docker-compose.prod.yml run --rm certbot \
 # ---- 8. Switch to HTTPS nginx config and reload ----
 echo "[8/8] Enabling HTTPS..."
 # nginx.conf already has the full HTTPS config
-sudo docker compose -f docker-compose.prod.yml restart frontend
+sudo docker-compose -f docker-compose.prod.yml restart frontend
 
 echo ""
 echo "========================================="
@@ -97,9 +97,9 @@ echo ""
 echo "  🌐 Website:  https://$DOMAIN"
 echo "  🔧 Backend:  https://$DOMAIN/chat/message"
 echo ""
-echo "  Logs:      sudo docker compose -f docker-compose.prod.yml logs -f"
-echo "  Stop:      sudo docker compose -f docker-compose.prod.yml down"
-echo "  Restart:   sudo docker compose -f docker-compose.prod.yml restart"
+echo "  Logs:      sudo docker-compose -f docker-compose.prod.yml logs -f"
+echo "  Stop:      sudo docker-compose -f docker-compose.prod.yml down"
+echo "  Restart:   sudo docker-compose -f docker-compose.prod.yml restart"
 echo ""
 echo "  ⚠️  Don't forget to:"
 echo "     1. Point $DOMAIN DNS A-record to this server's IP"
