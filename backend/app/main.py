@@ -30,7 +30,12 @@ app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # or ["*"] while testing
+    allow_origins=[
+        "http://localhost:5173",       # local dev
+        "https://medrag.online",         # production
+        "https://www.medrag.online",     # production www
+        "http://medrag.online",          # fallback
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -49,7 +54,8 @@ async def upload_image(file: UploadFile = File(...)):
         dest = os.path.join(UPLOAD_DIR, unique_name)
         with open(dest, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
-        file_url = f"http://localhost:8000/uploads/{unique_name}"
+        # Use relative path — nginx or frontend will resolve the full URL
+        file_url = f"/uploads/{unique_name}"
         return JSONResponse(
             {
                 "status": "success",

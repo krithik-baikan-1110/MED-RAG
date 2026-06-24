@@ -353,9 +353,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(mes
 
 # External libs
 import weaviate
-import open_clip
-import torch
 from openai import OpenAI  # openrouter-compatible client (openai package)
+
+# Shared embedding utilities (HuggingFace Inference API)
+from backend.app.core.rag_utils import embed_text, embed_image, EMBED_DIM
 
 
 OPHTHALMOLOGY_CODE_MAP: Dict[str, str] = {
@@ -394,8 +395,8 @@ except Exception:
 # CONFIG
 WEAVIATE_URL = os.getenv("WEAVIATE_URL", "http://localhost:8080")
 VECTOR_CLASS = os.getenv("WEAVIATE_CLASS", "MedicalReport")
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-BIOMEDCLIP_ID = os.getenv("BIOMEDCLIP_ID", "hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224")
+# DEVICE and BIOMEDCLIP_ID are no longer needed — embeddings are computed
+# remotely via HuggingFace Inference API (see rag_utils.py)
 MAX_CANDIDATES = int(os.getenv("MAX_CANDIDATES", "40"))
 MIN_K = int(os.getenv("MIN_K", "3"))
 SIM_THRESHOLD = float(os.getenv("SIM_THRESHOLD", "0.75"))
@@ -445,36 +446,9 @@ try:
 except Exception as exc:
     log.warning("Unable to inspect Weaviate class '%s' population: %s", VECTOR_CLASS, exc)
 
-# LOAD BiomedCLIP (OpenCLIP)
-log.info("Loading BiomedCLIP via OpenCLIP on %s...", DEVICE)
-model, preprocess_train, preprocess_val = open_clip.create_model_and_transforms(BIOMEDCLIP_ID, device=DEVICE)
-model.eval()
-preprocess = preprocess_val
-tokenizer = open_clip.get_tokenizer(BIOMEDCLIP_ID)
-log.info("✅ BiomedCLIP loaded")
-
-# EMBEDDING HELPERS
-def embed_text(text: str) -> np.ndarray:
-    if not text:
-        return np.zeros((model.text_projection.shape[1],), dtype=float)  # fallback
-    tokens = tokenizer(text).to(DEVICE)
-    with torch.no_grad():
-        t = model.encode_text(tokens)
-    arr = t.cpu().numpy().squeeze()
-    arr = arr / (np.linalg.norm(arr) + 1e-12)
-    return arr
-
-def embed_image(image_or_path) -> np.ndarray:
-    if isinstance(image_or_path, str):
-        img = Image.open(image_or_path).convert("RGB")
-    else:
-        img = image_or_path
-    x = preprocess(img).unsqueeze(0).to(DEVICE)
-    with torch.no_grad():
-        v = model.encode_image(x)
-    arr = v.cpu().numpy().squeeze()
-    arr = arr / (np.linalg.norm(arr) + 1e-12)
-    return arr
+# BiomedCLIP embeddings are now computed via HuggingFace Inference API
+# (imported from rag_utils.py — no local model loading needed)
+log.info("✅ Using BiomedCLIP via HuggingFace Inference API (no local model)")
 
 # DOMAIN DETECTION
 def detect_domain(question: Optional[str], image_path: Optional[str]) -> Dict[str, Any]:
