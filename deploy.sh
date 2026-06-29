@@ -75,12 +75,13 @@ sleep 15
 
 # ---- 7. Obtain SSL Certificate ----
 echo "[7/8] Obtaining SSL certificate from Let's Encrypt..."
-sudo docker-compose -f docker-compose.prod.yml run --rm certbot \
+sudo docker-compose -f docker-compose.prod.yml run --rm --entrypoint certbot certbot \
     certonly --webroot \
     --webroot-path=/var/www/certbot \
     --email "$EMAIL" \
     --agree-tos \
     --no-eff-email \
+    --keep-until-expiring \
     -d "$DOMAIN" \
     -d "www.$DOMAIN"
 
