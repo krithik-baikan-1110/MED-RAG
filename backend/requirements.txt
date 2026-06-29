@@ -31,7 +31,7 @@ openai>=1.50.0
 supabase>=2.3.1
 
 # LangChain orchestration
-langchain>=0.2.3
-langchain-core>=0.2.22
-langchain-community>=0.2.12
-langchain-openai>=0.1.14
+langchain>=0.2.3,<0.3.0
+langchain-core>=0.2.22,<0.3.0
+langchain-community>=0.2.12,<0.3.0
+langchain-openai>=0.1.14,<0.2.0
