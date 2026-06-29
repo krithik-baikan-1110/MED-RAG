@@ -87,8 +87,9 @@ sudo docker-compose -f docker-compose.prod.yml run --rm --entrypoint certbot cer
 
 # ---- 8. Switch to HTTPS nginx config and reload ----
 echo "[8/8] Enabling HTTPS..."
-# nginx.conf already has the full HTTPS config
-sudo docker-compose -f docker-compose.prod.yml restart frontend
+# Switch to full HTTPS config now that certificates exist
+cp nginx.conf nginx.active.conf
+sudo docker-compose -f docker-compose.prod.yml up -d --force-recreate frontend
 
 echo ""
 echo "========================================="
